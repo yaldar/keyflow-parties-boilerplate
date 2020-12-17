@@ -1,7 +1,38 @@
 import http
+import logging
 
 
 class KeyflowRequestMixin(object):
+    def write_error(self, status_code, **kwargs):
+        # We return all error messages using UTF-8
+        self.set_header("Content-Type", "text/plain; charset=UTF-8")
+        _ = self.locale.translate
+
+        if "status" not in kwargs:
+            kwargs["status"] = status_code
+
+        if "error" not in kwargs:
+            kwargs["error"] = True
+
+        # Try to translate detail if passed along.
+        if "detail" in kwargs:
+            # Translator: this string does not need to be translated. But it needs to be here.
+            keyword = kwargs["detail"]
+            kwargs["detail"] = str(_(keyword))
+
+        self.response = kwargs
+
+        if not status_code >= 500:
+            logging.info(self.response)
+        else:
+            logging.error(self.response)
+
+        reason = None
+        if "detail" in kwargs and isinstance(kwargs["detail"], str):
+            reason = kwargs["detail"].replace("\n", " ")
+        self.set_status(status_code, reason=reason)
+        self.write(self.response)
+
     def write_success(
         self, output=None, status_code=http.HTTPStatus.OK, pagination_properties=None
     ):
