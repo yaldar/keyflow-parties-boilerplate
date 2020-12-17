@@ -13,5 +13,5 @@ class GuestAccount(BasePyModelModel):
     id = fields.BigIntegerField(primary_key=True)
     first_name = fields.CharField(required=True)
     last_name = fields.CharField(required=True)
-
+    email = fields.EmailField(required=True)
     # ... add other fields here

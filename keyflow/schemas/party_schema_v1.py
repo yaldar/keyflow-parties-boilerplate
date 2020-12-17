@@ -7,3 +7,4 @@ class PartySchemaV1(Schema):
     address = fields.String(attribute="address")
     startTime = fields.DateTime(attribute="start_time")
     endTime = fields.String(attribute="end_time")
+    ownerGAId = fields.Int(attribute="owner_ga.id")
