@@ -28,7 +28,11 @@ def create_sample_guest_accounts():
 
 def create_sample_party(party_owner: GuestAccount):
     party = PartyFactory(owner_ga=party_owner)
-    return party.get_instance()
+    party_instance = party.get_instance()
+    logging.info(
+        f"Created party with id: {party_instance.id} with owner id: {party_owner.id}"
+    )
+    return party_instance
 
 
 def add_confirmed_guests_to_a_party(guest_accounts, number_of_guests, party: Party):

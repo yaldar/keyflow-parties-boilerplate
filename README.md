@@ -59,7 +59,16 @@ This can be achieved using our sample data loader script. You can load the
  data by: 
 ```
 keyflow-parties-boilerplate $ cd..
-$ PYTHONPATH=keyflow-parties-boilerplate python3.7 keyflow-parties-boilerplate/keyflow/sample_data/load_data.py 
+$ PYTHONPATH=keyflow-parties-boilerplate python3.7 keyflow-parties-boilerplate
+/keyflow/sample_data/load_data.py 
 ``` 
 Check your mongodb database with the name `keflow-parties` in your local
  environment to see the loaded sample data. 
+
+## Destroying sample data
+You can destroy data from all collections by running: 
+```
+keyflow-parties-boilerplate $ cd..
+$ PYTHONPATH=keyflow-parties-boilerplate python3.7 keyflow-parties
+-boilerplate/keyflow/sample_data/destroy_all_data.py 
+``` 
