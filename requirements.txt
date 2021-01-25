@@ -1,3 +1,4 @@
+marshmallow==3.10.0
 pymodm==0.4.3
 pymongo==3.9.0
 pytz==2020.4
