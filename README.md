@@ -46,3 +46,20 @@ need mongodb server running locally
  3. Install `mongodb-server` and copy the right configuration parameters to `keyflow/main.py`. For the most 
     basic cases, you might not want to change anything. 
  4. Try running some of the tests using Pycharm test runners. 
+
+## Loading sample data 
+For the context of the technical test, you have to create the following: 
+```
+Use a factory approach to create around 10 GuestAccounts.  
+Use a factory approach to create a Party. 
+1 of the 10 GuestAccounts is the owner of the party. 
+8 others can be confirmed guests to the Party.  
+```
+This can be achieved using our sample data loader script. You can load the
+ data by: 
+```
+keyflow-parties-boilerplate $ cd..
+$ PYTHONPATH=keyflow-parties-boilerplate python3.7 keyflow-parties-boilerplate/keyflow/sample_data/load_data.py 
+``` 
+Check your mongodb database with the name `keflow-parties` in your local
+ environment to see the loaded sample data. 
