@@ -6,6 +6,7 @@ Created on Feb 2, 2014
 
 import tornado
 
+from keyflow.models.guest_account import GuestAccount
 from keyflow.utils.keyflow_request_mixin import KeyflowRequestMixin
 from keyflow.utils.loggin_request_handler import LoggingRequestHandler
 
@@ -19,6 +20,17 @@ class KeyflowPartiesAppHandlerBase(KeyflowRequestMixin, LoggingRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.response = dict()
+
+    def get_current_user(self) -> GuestAccount:
+        # Fake authentication for fancy sake.
+        guest_account_id = self.request.headers.get("Authorization")
+        if not guest_account_id:
+            return None
+        try:
+            guest_account = GuestAccount.get(guest_account_id)
+        except GuestAccount.DoesNotExist:
+            return None
+        return guest_account
 
     def get_user_locale(self):
         """
