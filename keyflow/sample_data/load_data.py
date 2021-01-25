@@ -31,19 +31,21 @@ def create_sample_party(party_owner: GuestAccount):
     return party.get_instance()
 
 
-def add_confirmed_guests_to_a_party(guest_accounts, number_of_guests,
-                                    party: Party):
+def add_confirmed_guests_to_a_party(guest_accounts, number_of_guests, party: Party):
     for i in range(number_of_guests):
         guest_account = guest_accounts[i]
         party_request = PartyRequest(
-            party=party, from_ga=guest_account,
+            party=party,
+            from_ga=guest_account,
             status=PartyRequest.STATUS_ACCEPTED,
             accepted_ts=datetime.now(),
         )
         party_request.save()
-        logging.info(f"Accepted guest, {guest_account.first_name} to Party: "
-                     f"{party.title}")
+        logging.info(
+            f"Accepted guest, {guest_account.first_name} to Party: " f"{party.title}"
+        )
     return True
+
 
 def main():
     """
@@ -52,8 +54,9 @@ def main():
     """
     guest_accounts = create_sample_guest_accounts()
     party = create_sample_party(guest_accounts[0])
-    add_confirmed_guests_to_a_party(guest_accounts=guest_accounts[1:],
-                                    number_of_guests=8, party=party)
+    add_confirmed_guests_to_a_party(
+        guest_accounts=guest_accounts[1:], number_of_guests=8, party=party
+    )
 
 
 if __name__ == "__main__":
