@@ -22,7 +22,10 @@ def setup_defines():
         type=int,
     )
     safe_define(
-        "mongodb_database", default="keyflow", help="Mongodb " "database name", type=str
+        "mongodb_database",
+        default="keyflow_parties",
+        help="Mongodb " "database name",
+        type=str,
     )
     safe_define(
         "mongodb-hosts", default="127.0.0.1:27017", help="Mongodb " "host", type=str
@@ -32,7 +35,7 @@ def setup_defines():
 def start():
     setup_defines()
     http_server = tornado.httpserver.HTTPServer(
-        KeyflowPartiesApplication(debug=True, database_name=options.mongodb_hosts),
+        KeyflowPartiesApplication(debug=True, database_name=options.mongodb_database),
         xheaders=bool(options.enable_xheaders),
     )
     http_server.bind(8080)

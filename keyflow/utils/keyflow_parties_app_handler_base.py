@@ -27,7 +27,7 @@ class KeyflowPartiesAppHandlerBase(KeyflowRequestMixin, LoggingRequestHandler):
         if not guest_account_id:
             return None
         try:
-            guest_account = GuestAccount.get(guest_account_id)
+            guest_account = GuestAccount.objects.get({"_id": int(guest_account_id)})
         except GuestAccount.DoesNotExist:
             return None
         return guest_account
@@ -47,7 +47,7 @@ class KeyflowPartiesAppHandlerBase(KeyflowRequestMixin, LoggingRequestHandler):
 
         # If the user has a saved setting - go for that.
         if self.current_user:
-            return tornado.locale.get(self.current_user.language_selected)
+            return tornado.locale.get("en-US")
 
         return None
 

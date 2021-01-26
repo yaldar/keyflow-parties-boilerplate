@@ -72,3 +72,24 @@ keyflow-parties-boilerplate $ cd..
 $ PYTHONPATH=keyflow-parties-boilerplate python3.7 keyflow-parties
 -boilerplate/keyflow/sample_data/destroy_all_data.py 
 ``` 
+
+
+## APIs to play around with 
+@TODO: This needs to be done in some proper OPENAPI forms. 
+
+Once you load the sample data, you can use POST on 
+```
+http://127.0.0.1:8080/v1/parties/1/chats/
+```
+with headers 
+```
+Authorization: 1
+```
+and body 
+```
+{
+	
+	"message": "First test message"
+}
+```
+to create and store a test party room chat message into the database. 

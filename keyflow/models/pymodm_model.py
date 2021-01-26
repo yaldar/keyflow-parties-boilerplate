@@ -86,8 +86,10 @@ class BasePyModelModel(MongoModel):
     def _lazy_get_classes(cls):
         from keyflow.models.party import Party
         from keyflow.models.guest_account import GuestAccount
+        from keyflow.models.party_requests import PartyRequest
+        from keyflow.models.party_chat_message import PartyChatMessage
 
-        all_classes = (Party, GuestAccount)
+        all_classes = (Party, GuestAccount, PartyRequest, PartyChatMessage)
 
         return all_classes
 

@@ -6,7 +6,7 @@ from keyflow.schemas.party_schema_v1 import PartySchemaV1
 
 class PartiesServiceV1(object):
     def get_parties(self):
-        return Party.objects
+        return Party.objects.all()
 
     def serialize_parties(self, parties):
         return_dict = {"parties": [], "guestAccounts": []}
