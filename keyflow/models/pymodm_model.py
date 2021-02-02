@@ -73,7 +73,7 @@ class BasePyModelModel(MongoModel):
         Should normally not be used but can come
         in handy in order to speed up tests for instance.
         """
-        for collection in cls._db.collection_names():
+        for collection in cls._db.list_collection_names():
             try:
                 if collection == "activities" or collection == "keyflow_rules_log":
                     cls._db[collection].drop()

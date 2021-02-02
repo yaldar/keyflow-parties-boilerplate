@@ -1,3 +1,4 @@
+import logging
 import typing
 
 from keyflow.models.guest_account import GuestAccount
@@ -36,10 +37,22 @@ class PartyChatRoomServiceV1(object):
         return_response["chats"] = PartyChatSchemaV1().dump(party_chats, many=True)
         return return_response
 
-    def relay_message_to_consumers(self, party_chat):
+    def relay_message_to_consumers(self, party_chat: PartyChatMessage):
         """
         Fill this function. This is where you should relay the message to
         your websocket. You can probably create a separate ID for the chat
         room or use the party ID itself as you only have one party chat room per party.
         """
+        import socketio
+
+        sio = socketio.Client()
+        data = {"message": party_chat.message, "from": party_chat.from_ga.id, "room": party_chat.party.id}
+        @sio.event
+        def connect():
+          logging.info("broadcasting to room", data)
+          sio.emit("broadcast_to_room", data)
+          sio.disconnect()
+
+        sio.connect('http://localhost:5000/')
+
         pass
