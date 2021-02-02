@@ -20,7 +20,6 @@ class PartyChatRoomHandler(KeyflowPartiesAppHandlerBase):
     }
     """
 
-
     def post_worker(self, party: Party = None, post_body="", *args, **kwargs):
         party_chat_service_v1 = PartyChatRoomServiceV1(party=party)
         party_chat_message_schema = PartyChatSchemaV1()
@@ -47,7 +46,7 @@ class PartyChatRoomHandler(KeyflowPartiesAppHandlerBase):
             if not party:
                 raise Exception("Party not found")
 
-            # TODO: Check if the POSTer has right to create messages on this
+            #  Check if the POSTer has right to create messages on this
             #  party.
             from_ga = self.get_current_user()
             if is_attending(party, from_ga, self.write_error):

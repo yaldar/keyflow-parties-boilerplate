@@ -28,7 +28,7 @@ def user_join(sid, data):
 
 @sio.event
 def broadcast_to_room(sid, data):
-  sio.emit("chat_message", data={"message": data["message"], "from": data["ga_sender"]}, room=data["room"])
+  sio.emit("chat_message", data={"message": data["message"], "from": data["ga_sender"]}, room=data["room"], skip_sid=sid)
   logging.info("broadcasting message from server to room", data)
 
 

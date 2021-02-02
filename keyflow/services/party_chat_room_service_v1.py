@@ -54,5 +54,3 @@ class PartyChatRoomServiceV1(object):
           sio.disconnect()
 
         sio.connect('http://localhost:5000/')
-
-        pass
