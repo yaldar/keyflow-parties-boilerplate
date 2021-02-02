@@ -20,18 +20,3 @@ class ClientSocket:
       if self.sio.connected:
         self.sio.emit('user_join', data={"party": self.party.id})
     self.sio.connect(url='http://localhost:5000/')
-
-def socket_maker(party):
-  sio = socketio.Client()
-
-  @sio.event
-  def connect():
-    sio.emit('user_join', data={"party": party.id})
-
-
-  @sio.event
-  def chat_message(sid, data):
-    logging.info("message received from server", data)
-
-
-  sio.connect(url='http://localhost:5000/')
