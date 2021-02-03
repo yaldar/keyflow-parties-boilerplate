@@ -22,14 +22,14 @@ def disconnect(sid):
 
 @sio.event
 def user_join(sid, data):
-  logging.info(f"user with id: {sid} has joined the room for the party: {data['party']}")
+  print(f"user with id: {sid} has joined the room for the party: {data['party']}")
   sio.enter_room(sid, room=data["party"])
 
 
 @sio.event
 def broadcast_to_room(sid, data):
-  sio.emit("chat_message", data={"message": data["message"], "from": data["ga_sender"]}, room=data["room"], skip_sid=sid)
-  logging.info("broadcasting message from server to room", data)
+  sio.emit("chat_message", data={"message": data["message"], "from_ga": data["from_ga"]}, room=data["room"], skip_sid=sid)
+  print("broadcasting message from server to room", data)
 
 
 if __name__ == '__main__':

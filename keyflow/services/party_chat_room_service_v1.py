@@ -1,6 +1,7 @@
 import logging
 import typing
 
+from keyflow.client_socket import ClientSocket
 from keyflow.models.guest_account import GuestAccount
 from keyflow.models.party_chat_message import PartyChatMessage
 from keyflow.schemas.party_chat_schema_v1 import PartyChatSchemaV1
@@ -8,6 +9,7 @@ from keyflow.schemas.party_chat_schema_v1 import PartyChatSchemaV1
 
 class PartyChatRoomServiceV1(object):
     party = None
+
 
     def __init__(self, party=None):
         self.party = party
@@ -43,14 +45,6 @@ class PartyChatRoomServiceV1(object):
         your websocket. You can probably create a separate ID for the chat
         room or use the party ID itself as you only have one party chat room per party.
         """
-        import socketio
-
-        sio = socketio.Client()
-        data = {"message": party_chat.message, "from": party_chat.from_ga.id, "room": party_chat.party.id}
-        @sio.event
-        def connect():
-          logging.info("broadcasting to room", data)
-          sio.emit("broadcast_to_room", data)
-          sio.disconnect()
-
-        sio.connect('http://localhost:5000/')
+        socket = ClientSocket(party=party_chat.party, ga=party_chat.from_ga.id)
+        socket.connect("http://localhost:5000/")
+        socket.send_message_from_client(message=party_chat.message, from_ga=party_chat.from_ga.id, room=party_chat.party.id)
